@@ -1,7 +1,5 @@
 import myModule
+import base64
 
-with open("output.txt", "rb") as text_file:
-	a = text_file.readline();
 
-print (a)
-print(myModule.castString(a,6))
+print(myModule.castString("3.1415",6))

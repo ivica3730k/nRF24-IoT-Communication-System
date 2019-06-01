@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,21 +11,30 @@ int main(int argc, char** argv)
 {
 
     payload pload;
-    int32_t a = 72138;
+    int64_t a = -23123812345;
     pload = makePayload(a,0XFFFFFFFF);
-    string c = payloadDataToString(pload.data);
+    cout<<a<<endl;
+    int64_t b = castTo_int64_t(pload);
+    cout<<b;
+    return 0;
+
+
     //cout<<c<<endl;
 
+    /*
     DynamicJsonDocument  doc(200);
     doc["id"] = pload.id;
     doc["datatype"] = pload.datatype;
     doc["data"] = c;
     serializeJsonPretty(doc, std::cout);
 
-    /*
+
     std::ofstream out("output.txt");
     out << c;
     out.close();
+
+     */
+    /*
 
     string b;
 

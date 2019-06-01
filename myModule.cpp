@@ -2,6 +2,7 @@
 
 #include <Python.h>
 #include <iostream>
+#include <string>
 using namespace std;
 #include "payloads.h"
 
@@ -9,15 +10,15 @@ static PyObject* castString(PyObject* self, PyObject* args) {
     char *data;
     int type;
 
-    if (!PyArg_ParseTuple(args, "s*|i", &data,&type)) {
+    if (!PyArg_ParseTuple(args, "si", &data,&type)) {
         return NULL;
     }
-    //return Py_BuildValue("s",data);
 
     payload bload;
     bload.datatype = type;
     std::string str(data);
-    for (int i = 0; i < 26; i++) {
+
+    for (unsigned int i = 0; i<str.length();i++){
         bload.data[i] = str[i];
     }
 
