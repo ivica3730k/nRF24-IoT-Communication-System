@@ -9,71 +9,13 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-
     payload pload;
-    int64_t a = -23123812345;
+    uint8_t a = 231345;
     pload = makePayload(a,0XFFFFFFFF);
-    cout<<a<<endl;
-    int64_t b = castTo_int64_t(pload);
-    cout<<b;
-    return 0;
-
-
-    //cout<<c<<endl;
-
-    /*
-    DynamicJsonDocument  doc(200);
+    DynamicJsonDocument doc(256);
     doc["id"] = pload.id;
     doc["datatype"] = pload.datatype;
-    doc["data"] = c;
+    doc["data"] = pload.data;
     serializeJsonPretty(doc, std::cout);
-
-
-    std::ofstream out("output.txt");
-    out << c;
-    out.close();
-
-     */
-    /*
-
-    string b;
-
-    ifstream myfile ("output.txt");
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,b) )
-        myfile.close();
-    }
-
-    payload bload;
-
-    for(int i = 0; i<b.length();i++){
-        bload.data[i] = b[i];
-    }
-
-    bload.datatype = pload.datatype;
-    bload.id = pload.id;
-
-
-    short type = ploadType(bload);
-    cout<<type<<endl;
-    if(type == is_uint64_t){
-        uint64_t result = castTo_uint64_t(bload);
-        cout<<result;
-    }
-    else if(type == is_float){
-        float result = castTo_float(bload);
-        cout<<result;
-    }
-    else if(type == is_uint8_t){
-        float result = castTo_uint8_t(bload);
-        cout<<result;
-    }
-    else if(type == is_int8_t){
-        float result = castTo_int8_t(bload);
-        cout<<result;
-    }
-
     return 0;
-*/
 }
