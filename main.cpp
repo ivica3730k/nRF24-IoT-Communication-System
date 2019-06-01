@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     string c = payloadDataToString(pload.data);
     cout<<c<<endl;
 
-    std::ofstream out("output.txt");
+    std::ofstream out("output.txt",std::ofstream::binary);
     out << c;
     out.close();
 
@@ -38,13 +38,21 @@ int main(int argc, char** argv)
 
 
     short type = ploadType(bload);
-
+    cout<<type<<endl;
     if(type == is_uint64_t){
         uint64_t result = castTo_uint64_t(bload);
         cout<<result;
     }
     else if(type == is_float){
         float result = castTo_float(bload);
+        cout<<result;
+    }
+    else if(type == is_uint8_t){
+        float result = castTo_uint8_t(bload);
+        cout<<result;
+    }
+    else if(type == is_int8_t){
+        float result = castTo_int8_t(bload);
         cout<<result;
     }
 

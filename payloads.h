@@ -76,6 +76,7 @@ payload makePayload(int8_t& data, uint32_t id)
     pload.id = id;
     pload.datatype = 4;
     memcpy(pload.data, &data, sizeof(data));
+    return pload;
 }
 payload makePayload(int16_t& data, uint32_t id)
 {
