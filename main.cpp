@@ -1,9 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "ArduinoJson/src/ArduinoJson.h"
-#include "HTTPRequest-master/include/HTTPRequest.hpp"
-#include "payloads.h"
+
+#include "C++Libs/ArduinoJson/src/ArduinoJson.h"
+#include "C++Libs/HTTPRequest-master/include/HTTPRequest.hpp"
+#include "C++PyModules/payloads.h"
+
 using namespace std;
 
 
