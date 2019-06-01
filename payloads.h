@@ -258,6 +258,15 @@ long double castTo_long_double(payload& pload)
     return rec;
 }
 
+std::string payloadDataToString(char data[26]){
+    std::string a;
+    for(int i = 0; i<sizeof(data)/sizeof(data[0]);i++){
+        a+= data[i];
+    }
+    return a;
+}
+
+
 
 #endif //COMMTESTS_PAYLOADS_H
 
