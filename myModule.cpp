@@ -7,17 +7,18 @@ using namespace std;
 
 static PyObject* castString(PyObject* self, PyObject* args) {
     char *data;
+    int type;
 
-    if (!PyArg_ParseTuple(args, "si", &data)) {
+    if (!PyArg_ParseTuple(args, "s*|i", &data,&type)) {
         return NULL;
     }
-    return Py_BuildValue("s",data);
-    /*
+    //return Py_BuildValue("s",data);
+
     payload bload;
     bload.datatype = type;
-
-    for (int i = 0; i < data.length(); i++) {
-        bload.data[i] = data[i];
+    std::string str(data);
+    for (int i = 0; i < 26; i++) {
+        bload.data[i] = str[i];
     }
 
     if (type == is_char) return Py_BuildValue("s#",castTo_char(bload));
@@ -30,13 +31,13 @@ static PyObject* castString(PyObject* self, PyObject* args) {
     else if (type == is_uint8_t) return Py_BuildValue("i",castTo_uint8_t(bload));
     else if (type == is_uint16_t) return Py_BuildValue("l",castTo_uint16_t(bload));
     else if (type == is_uint32_t) return Py_BuildValue("l",castTo_uint32_t(bload));
-    else if (type == is_uint64_t) return Py_BuildValue("l",castTo_uint16_t(bload));
+    else if (type == is_uint64_t) return Py_BuildValue("l",castTo_uint64_t(bload));
     else if (type == is_float) return Py_BuildValue("f",castTo_float(bload));
     else if (type == is_double) return Py_BuildValue("d",castTo_float(bload));
     else{
         return NULL;
     }
-*/
+
 }
 
 static PyObject* version(PyObject* self)

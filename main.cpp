@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "ArduinoJson/src/ArduinoJson.h"
+#include "HTTPRequest-master/include/HTTPRequest.hpp"
 #include "payloads.h"
 using namespace std;
 
@@ -9,12 +11,19 @@ int main(int argc, char** argv)
 {
 
     payload pload;
-    uint64_t a = UINT64_MAX;
-    pload = makePayload(a,0XAABBCCDE);
+    int32_t a = 72138;
+    pload = makePayload(a,0XFFFFFFFF);
     string c = payloadDataToString(pload.data);
-    cout<<c<<endl;
+    //cout<<c<<endl;
 
-    std::ofstream out("output.txt",std::ofstream::binary);
+    DynamicJsonDocument  doc(200);
+    doc["id"] = pload.id;
+    doc["datatype"] = pload.datatype;
+    doc["data"] = c;
+    serializeJsonPretty(doc, std::cout);
+
+    /*
+    std::ofstream out("output.txt");
     out << c;
     out.close();
 
@@ -57,5 +66,5 @@ int main(int argc, char** argv)
     }
 
     return 0;
-
+*/
 }
