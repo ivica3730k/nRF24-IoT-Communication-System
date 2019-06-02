@@ -19,5 +19,7 @@ int main(int argc, char** argv)
     doc["datatype"] = pload.datatype;
     doc["data"] = pload.data;
     serializeJsonPretty(doc, std::cout);
+
+
     return 0;
 }
