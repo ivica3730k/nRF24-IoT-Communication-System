@@ -12,6 +12,8 @@ using namespace std;
 int main(int argc, char** argv)
 {
     payload pload;
+    cout<<sizeof(pload);
+    return 0;
     uint8_t a = 231345;
     pload = makePayload(a,0XFFFFFFFF);
     DynamicJsonDocument doc(256);

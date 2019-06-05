@@ -17,7 +17,7 @@
 #define is_long_double 14
 
 struct payload {
-    uint32_t id;
+    uint64_t id;
     short datatype;
     /*pload dataytpe varies from data that we want to send
      * 0 for raw data
@@ -36,15 +36,14 @@ struct payload {
      * 13 for double
      * 14 for long double
      */
-    char data[26];
+    char data[22];
 };
-
 class nRF24CommSystem{
     public:
         nRF24CommSystem(RF24 &_device);
-        void setup(const uint32_t &_uplinkPipe,unsigned int &_channel);
+        void setup(const uint64_t &_uplinkPipe,unsigned int &_channel);
     private:
         RF24 *nRF24;
-        uint32_t uplinkPipe;
+        uint64_t uplinkPipe;
         unsigned int channel;
 };

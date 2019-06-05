@@ -1,4 +1,3 @@
-
 //
 // Created by ivica on 01/06/19.
 //
@@ -20,7 +19,7 @@
 #define is_long_double 14
 
 struct payload {
-    uint32_t id;
+    uint64_t id;
     short datatype;
     /*pload dataytpe varies from data that we want to send
      * 0 for raw data
@@ -39,10 +38,10 @@ struct payload {
      * 13 for double
      * 14 for long double
      */
-    char data[26];
+    char data[22];
 };
 
-payload makePayload(char& data, uint32_t id)
+payload makePayload(char& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -51,7 +50,7 @@ payload makePayload(char& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(char16_t& data, uint32_t id)
+payload makePayload(char16_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -60,7 +59,7 @@ payload makePayload(char16_t& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(char32_t& data, uint32_t id)
+payload makePayload(char32_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -69,7 +68,7 @@ payload makePayload(char32_t& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(int8_t& data, uint32_t id)
+payload makePayload(int8_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -78,7 +77,7 @@ payload makePayload(int8_t& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(int16_t& data, uint32_t id)
+payload makePayload(int16_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -87,7 +86,7 @@ payload makePayload(int16_t& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(int32_t& data, uint32_t id)
+payload makePayload(int32_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -97,7 +96,7 @@ payload makePayload(int32_t& data, uint32_t id)
     return pload;
 }
 /*
-payload makePayload(int64_t& data, uint32_t id)
+payload makePayload(int64_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -106,7 +105,7 @@ payload makePayload(int64_t& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }*/
-payload makePayload(uint8_t& data, uint32_t id)
+payload makePayload(uint8_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -115,7 +114,7 @@ payload makePayload(uint8_t& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(uint16_t& data, uint32_t id)
+payload makePayload(uint16_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -124,7 +123,7 @@ payload makePayload(uint16_t& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(uint32_t& data, uint32_t id)
+payload makePayload(uint32_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -134,7 +133,7 @@ payload makePayload(uint32_t& data, uint32_t id)
     return pload;
 }
 /*
-payload makePayload(uint64_t& data, uint32_t id)
+payload makePayload(uint64_t& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -144,7 +143,7 @@ payload makePayload(uint64_t& data, uint32_t id)
     return pload;
 }*/
 
-payload makePayload(float& data, uint32_t id)
+payload makePayload(float& data, uint64_t id)
 {
     payload pload;
     pload.id = id;
@@ -153,7 +152,7 @@ payload makePayload(float& data, uint32_t id)
     strcpy(pload.data, cache.c_str());
     return pload;
 }
-payload makePayload(double& data, uint32_t id)
+payload makePayload(double& data, uint64_t id)
 {
     payload pload;
     pload.id = id;

@@ -1,3 +1,7 @@
+//
+// Created by ivica on 01/06/19.
+//
+
 #include <Arduino.h>
 #include <nRF24CommSystem.h>
 
@@ -5,7 +9,7 @@ nRF24CommSystem::nRF24CommSystem(RF24 &_device){
     nRF24 = &_device;
 }
 
-void nRF24CommSystem::setup(const uint32_t &_uplinkPipe,unsigned int &_channel){
+void nRF24CommSystem::setup(const uint64_t &_uplinkPipe,unsigned int &_channel){
     uplinkPipe = _uplinkPipe;
     channel = _channel;
 

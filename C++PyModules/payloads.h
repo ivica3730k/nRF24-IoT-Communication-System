@@ -25,7 +25,7 @@ using namespace std;
 #define is_long_double 14
 
 struct payload {
-    uint32_t id;
+    uint64_t id;
     short datatype;
     /*pload dataytpe varies from data that we want to send
      * 0 for raw data
@@ -44,7 +44,7 @@ struct payload {
      * 13 for double
      * 14 for long double
      */
-    char data[26];
+    char data[22];
 };
 
 payload makePayload(char& data, uint32_t id)

@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <RF24.h>
-#include <payloads.h>
 #include <nRF24CommSystem.h>
 
 
@@ -23,7 +22,7 @@ void setup() {
 void loop() {
   payload pload;
   uint32_t numberToSend = INT32_MAX;
-  pload = makePayload(numberToSend,0xA22DABEC);
+
 
   if (!radio.write( &pload, sizeof(pload) )){
        Serial.println(F("failed"));
