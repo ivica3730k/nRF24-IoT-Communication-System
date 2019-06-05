@@ -42,6 +42,18 @@ class nRF24CommSystem{
     public:
         nRF24CommSystem(RF24 &_device);
         void setup(const uint64_t &_uplinkPipe,unsigned int &_channel);
+        payload nRF24CommSystem::makePayload(char& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(char16_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(char32_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(int8_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(int16_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(int32_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(uint8_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(uint16_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(uint32_t& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(float& data, uint64_t id);
+        payload nRF24CommSystem::makePayload(double& data, uint64_t id);
+
     private:
         RF24 *nRF24;
         uint64_t uplinkPipe;
