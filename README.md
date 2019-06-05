@@ -1,0 +1,3 @@
+nRF24  IoT Communication System
+
+Priced similarly to Arduino board and offering relatively easy mode of communication for non IoT ready devices (like UNO itself) it provides cheap way of connecting devices together. However, as nRF24 is intended for two-way communication between boards it is currently not easy to implement it for connecting multiple devices and providing Internet capabilities. This paper will be based on this module, providing a way to use non IoT ready boards, and this Wireless module to create wireless network that mimics all features of real Internet network, enabling large area connectivity to those devices.
