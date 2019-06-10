@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}People Counter - Web {% endblock %}</title>
+</head>
+
+<body>
+    {% if user.is_authenticated %} Hi {{ user.username }}{% endif %}
+
+    <main style="margin-top:40px;">
+        {% block content %} 
+        {% endblock %}
+    </main>
+</body>
+
+</html>

@@ -1,7 +1,18 @@
-<h2>Login</h2>
 
+{% extends 'static.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content%}
+
+{% if user.is_authenticated %} Your, {{ user.username }} are already logged in!
+
+{%else%}
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
 </form>
+{% endif %}
+
+{% endblock %}
