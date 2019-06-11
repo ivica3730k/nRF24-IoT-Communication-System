@@ -5,6 +5,6 @@ from django.urls import include
 urlpatterns = [
     path('user/', include('usermanagment.urls')),
     path('data', include('data.urls')),
-    #path('', include('django.contrib.auth.urls')), 
+    path('', include('home.urls')), 
 
 ]
