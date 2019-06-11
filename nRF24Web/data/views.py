@@ -1,4 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,loader
+from django.contrib.auth import login, authenticate
+from django.contrib import auth
 from django.http import HttpResponse
 import json
 
@@ -22,4 +24,7 @@ def save(request):
         except:
             return HttpResponse("FAILED")
 
-    return HttpResponse("OK")
+    template = loader.get_template('data.html')
+    context = {}
+    #return render(request, 'data.html')
+    return HttpResponse(template.render(context,request))
