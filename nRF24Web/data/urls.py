@@ -8,4 +8,6 @@ from django.conf.urls.static import static
 from .import views
 urlpatterns = [
 
+    path('channel/listall',views.listChannels),
+    path('',views.dashboard),
 ]

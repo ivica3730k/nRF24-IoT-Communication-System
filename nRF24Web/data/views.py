@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,loader
 from django.contrib.auth import login, authenticate
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 import json
 
@@ -28,3 +29,27 @@ def save(request):
     context = {}
     #return render(request, 'data.html')
     return HttpResponse(template.render(context,request))
+
+def dashboard(request):
+    current_user = request.user
+    if current_user.id == None:
+        return HttpResponse("You need to log in first to access your dashboard")
+
+    if request.method == "GET":
+        template = loader.get_template('dashboard.html')
+        context = {
+        }
+        return HttpResponse(template.render(context,request))
+
+def listChannels(request):
+    current_user = request.user
+    template = loader.get_template('channels.html')
+    context = {}
+    try:
+        user = User.objects.get(id = current_user.id)
+        listOfChannels = channel.objects.filter(owner = current_user)
+        context["channels"] = listChannels
+    except:
+        pass
+
+    return HttpResponse(template.render(context,request))    
