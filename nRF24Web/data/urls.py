@@ -8,6 +8,6 @@ from django.conf.urls.static import static
 from .import views
 urlpatterns = [
 
-    path('/channel',views.listChannels),
+    path('channel',views.listChannels),
     path('',views.dashboard),
 ]

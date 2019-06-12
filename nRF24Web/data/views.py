@@ -43,6 +43,8 @@ def dashboard(request):
 
 def listChannels(request):
     current_user = request.user
+    if current_user.id == None:
+        return HttpResponse("You need to log in first to access your dashboard")
     template = loader.get_template('channels.html')
     context = {}
     try:
