@@ -48,8 +48,8 @@ def listChannels(request):
     try:
         user = User.objects.get(id = current_user.id)
         listOfChannels = channel.objects.filter(owner = current_user)
-        context["channels"] = listChannels
+        context["channels"] = listOfChannels
     except:
         pass
-
+    
     return HttpResponse(template.render(context,request))    

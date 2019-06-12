@@ -6,8 +6,8 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     
-    path('register/',views.signup),
-    path('', include('django.contrib.auth.urls')), 
+    path('/register',views.signup),
+    path('/', include('django.contrib.auth.urls')), 
 
     
 ]

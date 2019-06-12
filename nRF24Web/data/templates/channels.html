@@ -5,7 +5,7 @@
 {%block content%}
 
 <div class= "row">
-    <div class = "col-md-6">
+    <div class = "col-md-6 px-4">
 
         <table class="table">
             <thead>
@@ -16,16 +16,38 @@
               </tr>
             </thead>
             <tbody>
+              {%if channels%}
+              
+              {% for ch in channels %}
               <tr>
-                <th scope="row"></th>
-                <td>Mark</td>
-                <td>Otto</td>
+                <th scope="row">{{ch.label}}</th>
+                <td>{{ch.fieldId}}</td>
+                <td>{{ch.mqttBroker}}</td>
               </tr>
+              {% endfor %}
+
+              {%endif%}
+
             
             </tbody>
           </table>
           
 
+    </div>
+    <div class ="col-md-6 px-4">
+
+        <form>
+            {% csrf_token %}
+            <div class="form-group">
+              <label>Channel Label</label>
+              <input type="email" class="form-control" placeholder="Enter channel label">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Mqtt Broker</label>
+              <input type="text" class="form-control" placeholder="Enter MqttBroker">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
     </div>
 </div>
 
