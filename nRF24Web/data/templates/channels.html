@@ -42,10 +42,10 @@
                 <input type="text" class="form-control" placeholder="Enter channel label" autocomplete="off">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="addChannelForm">
 
                 <label for="sel2">Select broker from the list <small> <br>Select None for no Mqtt passtrough</small></label>
-                <select class="form-control" id="sel2">
+                <select class="form-control" id="mqttBrokerSelection">
                     <option>None</option>
                     {%if mqttBrokers%} {% for mqtt in mqttBrokers %}
 
@@ -57,7 +57,7 @@
 
             <div class="form-group">
                 <label>Mqtt topic <small> <!--<br>Select None for no Mqtt passtrough</small>--></label>
-                <input type="text" class="form-control" placeholder="Enter Mqtt topic name" autocomplete="off">
+                <input id='mqttTopicSelection' type="text" class="form-control" placeholder="Enter Mqtt topic name" autocomplete="off" disabled>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -97,7 +97,6 @@
 
     </div>
 
-    
     <div class="col-md-4 px-5">
         <h3>Add Mqtt Broker</h3>
 
@@ -134,93 +133,109 @@
         </form>
 
         <script>
-                const form = document.getElementById('mqttForm');
-                const nameField = document.getElementById('description');
-                const addrField = document.getElementById('mqttAddr');
-                const portField = document.getElementById('mqttPort');
-                const okButton = document.getElementById('subbtn');
-        
-                var goodName = false;
-                var goodAddr = false;
-                var goodPort = true;
-        
-                portField.addEventListener('keyup', function(event) {
-                    isValid = portField.checkValidity();
-        
-                    if (isValid) {
-                        goodPort = true;
-                    } else {
-                        goodPort = false;
-                    }
-        
-                    if (goodName === true && goodAddr === true && goodPort === true) {
-                        okButton.disabled = false;
-                    } else {
-                        okButton.disabled = true;
-        
-                    }
-        
-                });
-        
-                addrField.addEventListener('keyup', function(event) {
-                    isValid = addrField.checkValidity();
-        
-                    if (isValid) {
-                        goodAddr = true;
-                    } else {
-                        goodAddr = false;
-                    }
-        
-                    if (goodName === true && goodAddr === true && goodPort === true) {
-                        okButton.disabled = false;
-                    } else {
-                        okButton.disabled = true;
-        
-                    }
-        
-                });
-        
-                nameField.addEventListener('keyup', function(event) {
-                    isValid = nameField.checkValidity();
-        
-                    if (isValid) {
-                        goodName = true;
-                    } else {
-                        goodName = false;
-                    }
-        
-                    if (goodName === true && goodAddr === true && goodPort === true) {
-                        okButton.disabled = false;
-                    } else {
-                        okButton.disabled = true;
-        
-                    }
-        
-                });
+            const addChForm = document.getElementById('addChannelForm')
+            const mqttBrokerSelection = document.getElementById('mqttBrokerSelection')
+            const mqttTopicSelection = document.getElementById('mqttTopicSelection')
 
-                nameField.addEventListener('click', function(event) {
-                    isValid = nameField.checkValidity();
-        
-                    if (isValid) {
-                        goodName = true;
-                    } else {
-                        goodName = false;
-                    }
-        
-                    if (goodName === true && goodAddr === true && goodPort === true) {
-                        okButton.disabled = false;
-                    } else {
-                        okButton.disabled = true;
-        
-                    }
-        
-                });
-        
-               
-                okButton.addEventListener('click', function(event) {
-                    form.submit();
-                });
-            </script>
+            const form = document.getElementById('mqttForm');
+            const nameField = document.getElementById('description');
+            const addrField = document.getElementById('mqttAddr');
+            const portField = document.getElementById('mqttPort');
+            const okButton = document.getElementById('subbtn');
+
+            var goodName = false;
+            var goodAddr = false;
+            var goodPort = true;
+
+            mqttBrokerSelection.addEventListener('click', function(event) {
+                mqttTopicSelection.disabled = false
+
+                var text = mqttBrokerSelection.options[mqttBrokerSelection.selectedIndex].text;
+
+                if (text !== "None") {
+                    mqttTopicSelection.disabled = false;
+                } else {
+                    mqttTopicSelection.disabled = true;
+                }
+
+            });
+
+            portField.addEventListener('keyup', function(event) {
+                isValid = portField.checkValidity();
+
+                if (isValid) {
+                    goodPort = true;
+                } else {
+                    goodPort = false;
+                }
+
+                if (goodName === true && goodAddr === true && goodPort === true) {
+                    okButton.disabled = false;
+                } else {
+                    okButton.disabled = true;
+
+                }
+
+            });
+
+            addrField.addEventListener('keyup', function(event) {
+                isValid = addrField.checkValidity();
+
+                if (isValid) {
+                    goodAddr = true;
+                } else {
+                    goodAddr = false;
+                }
+
+                if (goodName === true && goodAddr === true && goodPort === true) {
+                    okButton.disabled = false;
+                } else {
+                    okButton.disabled = true;
+
+                }
+
+            });
+
+            nameField.addEventListener('keyup', function(event) {
+                isValid = nameField.checkValidity();
+
+                if (isValid) {
+                    goodName = true;
+                } else {
+                    goodName = false;
+                }
+
+                if (goodName === true && goodAddr === true && goodPort === true) {
+                    okButton.disabled = false;
+                } else {
+                    okButton.disabled = true;
+
+                }
+
+            });
+
+            nameField.addEventListener('click', function(event) {
+                isValid = nameField.checkValidity();
+
+                if (isValid) {
+                    goodName = true;
+                } else {
+                    goodName = false;
+                }
+
+                if (goodName === true && goodAddr === true && goodPort === true) {
+                    okButton.disabled = false;
+                } else {
+                    okButton.disabled = true;
+
+                }
+
+            });
+
+            okButton.addEventListener('click', function(event) {
+                form.submit();
+            });
+        </script>
 
     </div>
 
