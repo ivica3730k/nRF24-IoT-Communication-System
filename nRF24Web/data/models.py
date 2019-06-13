@@ -15,7 +15,7 @@ class channel(models.Model):
     label = models.TextField(max_length=100,default="Label for channel")
     owner = models.ForeignKey(User,on_delete = models.CASCADE,null = True)
     fieldId = models.TextField(primary_key=True, default= hex(int(uuid.uuid4().hex[:16],16)), editable=False,unique = True)
-    mqttLink = models.TextField(default=None, max_length=200,null=True)
+    mqttTopic = models.TextField(default=None, max_length=200,null=True)
     mqttBroker = models.ForeignKey(mqttBroker,on_delete = models.CASCADE,null = True,default = None)
 
 class channelData(models.Model):

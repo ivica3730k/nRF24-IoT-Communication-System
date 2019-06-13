@@ -1,5 +1,4 @@
 {% extends 'static.html' %} {% block title %} Channels {% endblock %} {%block content%}
-
 <div class="row py-5">
     <div class="col-md-8 px-5">
 
@@ -12,7 +11,7 @@
                 <tr>
                     <th scope="col">Channel label</th>
                     <th scope="col">Channel ID</th>
-                    <th scope="col">Mqtt Link</th>
+                    <th scope="col">Mqtt topic</th>
                     <th scope="col">Mqtt Broker</th>
                 </tr>
             </thead>
@@ -21,7 +20,7 @@
                 <tr>
                     <th scope="row">{{ch.label}}</th>
                     <td>{{ch.fieldId}}</td>
-                    <td>{{ch.mqttLink}}</td>
+                    <td>{{ch.mqttTopic}}</td>
                     <td>{{ch.mqttBroker}}</td>
                 </tr>
                 {% endfor %} {%endif%}
@@ -31,102 +30,199 @@
 
     </div>
     <div class="col-md-4 px-5">
-            <h3>Add channel</h3>
+        <h3>Add channel</h3>
 
-            <br>
+        <br>
 
-        <form  autocomplete="off">
+        <form autocomplete="off">
             {% csrf_token %}
 
             <div class="form-group">
                 <label>Channel Label</label>
-                <input type="email" class="form-control" placeholder="Enter channel label" autocomplete="off">
+                <input type="text" class="form-control" placeholder="Enter channel label" autocomplete="off">
             </div>
 
             <div class="form-group">
 
-                <label for="sel2">Select broker from the list</label>
+                <label for="sel2">Select broker from the list <small> <br>Select None for no Mqtt passtrough</small></label>
                 <select class="form-control" id="sel2">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option>None</option>
+                    {%if mqttBrokers%} {% for mqtt in mqttBrokers %}
+
+                    <option>{{mqtt.description}}</option>
+                    {% endfor %} {%endif%}
+
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Mqtt topic <small> <!--<br>Select None for no Mqtt passtrough</small>--></label>
+                <input type="text" class="form-control" placeholder="Enter Mqtt topic name" autocomplete="off">
+            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>
 
 <div class="row py-5">
-        <div class="col-md-8 px-5">
+    <div class="col-md-8 px-5">
 
-                <h3>My Mqtt Brokers</h3>
-        
-                <br>
-        
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Broker name</th>
-                            <th scope="col">Broker address</th>
-                            <th scope="col">Broker port</th>
-                            <th scope="col">User name</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%if mqttBrokers%} {% for mqtt in mqttBrokers %}
-                        <tr>
-                            <th scope="row">{{mqtt.description}}</th>
-                            <td>{{mqtt.mqttAddr}}</td>
-                            <td>{{mqtt.mqttPort}}</td>
-                            <td>{{mqtt.mqttUserName}}</td>
-                        </tr>
-                        {% endfor %} {%endif%}
-        
-                    </tbody>
-                </table>
-        
-            </div>
+        <h3>My Mqtt Brokers</h3>
+
+        <br>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Broker name</th>
+                    <th scope="col">Broker address</th>
+                    <th scope="col">Broker port</th>
+                    <th scope="col">User name</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {%if mqttBrokers%} {% for mqtt in mqttBrokers %}
+                <tr>
+                    <th scope="row">{{mqtt.description}}</th>
+                    <td>{{mqtt.mqttAddr}}</td>
+                    <td>{{mqtt.mqttPort}}</td>
+                    <td>{{mqtt.mqttUserName}}</td>
+                </tr>
+                {% endfor %} {%endif%}
+
+            </tbody>
+        </table>
+
+    </div>
+
+    
     <div class="col-md-4 px-5">
         <h3>Add Mqtt Broker</h3>
 
         <br>
 
-        <form action="/dashboard/addMqttBroker" method="post"  autocomplete="off" >
+        <form action="/dashboard/addMqttBroker" method="post" autocomplete="off" id="mqttForm">
             {% csrf_token %}
 
             <div class="form-group">
                 <label for="description">Name </label>
-                <input id="description" type="text" name="description" class="form-control"  placeholder="Enter name of Mqtt broker">
+                <input id="description" type="text" name="description" class="form-control" placeholder="Enter name of Mqtt broker" required>
             </div>
 
             <div class="form-group">
                 <label for="mqttAddr">Mqtt Address </label>
-                <input id="mqttAddr" type="text" name="mqttAddr" class="form-control"  placeholder="Enter address of Mqtt broker">
+                <input id="mqttAddr" type="text" name="mqttAddr" class="form-control" placeholder="Enter address of Mqtt broker" required>
             </div>
 
             <div class="form-group">
-                    <label for="mqttPort">Mqtt Port </label>
-                    <input id="mqttPort" type="number" name="mqttPort" class="form-control"  placeholder="Enter port for Mqtt broker" value=1883 >
-                </div>
+                <label for="mqttPort">Mqtt Port </label>
+                <input id="mqttPort" type="number" name="mqttPort" class="form-control" placeholder="Enter port for Mqtt broker" value=1883 required>
+            </div>
 
             <div class="form-group">
                 <label for="mqttUserName">Mqtt Username <small>Blank for none</small> </label>
-                <input id="mqttUserName" type="text" name="mqttUserName" class="form-control"  placeholder="Enter username for Mqtt broker" autocomplete="off">
+                <input id="mqttUserName" type="text" name="mqttUserName" class="form-control" placeholder="Enter username for Mqtt broker" autocomplete="off">
             </div>
             <div class="form-group">
                 <label for="mqttPassword">Mqtt Password <small>Blank for none</small> </label>
-                <input id="mqttPassword" type="password" name="mqttPassword" class="form-control"  placeholder="Enter password for Mqtt broker" autocomplete="off" >
+                <input id="mqttPassword" type="password" name="mqttPassword" class="form-control" placeholder="Enter password for Mqtt broker" autocomplete="off">
             </div>
-           
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button id="subbtn" type="submit" class="btn btn-primary" disabled>Submit</button>
         </form>
+
+        <script>
+                const form = document.getElementById('mqttForm');
+                const nameField = document.getElementById('description');
+                const addrField = document.getElementById('mqttAddr');
+                const portField = document.getElementById('mqttPort');
+                const okButton = document.getElementById('subbtn');
+        
+                var goodName = false;
+                var goodAddr = false;
+                var goodPort = true;
+        
+                portField.addEventListener('keyup', function(event) {
+                    isValid = portField.checkValidity();
+        
+                    if (isValid) {
+                        goodPort = true;
+                    } else {
+                        goodPort = false;
+                    }
+        
+                    if (goodName === true && goodAddr === true && goodPort === true) {
+                        okButton.disabled = false;
+                    } else {
+                        okButton.disabled = true;
+        
+                    }
+        
+                });
+        
+                addrField.addEventListener('keyup', function(event) {
+                    isValid = addrField.checkValidity();
+        
+                    if (isValid) {
+                        goodAddr = true;
+                    } else {
+                        goodAddr = false;
+                    }
+        
+                    if (goodName === true && goodAddr === true && goodPort === true) {
+                        okButton.disabled = false;
+                    } else {
+                        okButton.disabled = true;
+        
+                    }
+        
+                });
+        
+                nameField.addEventListener('keyup', function(event) {
+                    isValid = nameField.checkValidity();
+        
+                    if (isValid) {
+                        goodName = true;
+                    } else {
+                        goodName = false;
+                    }
+        
+                    if (goodName === true && goodAddr === true && goodPort === true) {
+                        okButton.disabled = false;
+                    } else {
+                        okButton.disabled = true;
+        
+                    }
+        
+                });
+
+                nameField.addEventListener('click', function(event) {
+                    isValid = nameField.checkValidity();
+        
+                    if (isValid) {
+                        goodName = true;
+                    } else {
+                        goodName = false;
+                    }
+        
+                    if (goodName === true && goodAddr === true && goodPort === true) {
+                        okButton.disabled = false;
+                    } else {
+                        okButton.disabled = true;
+        
+                    }
+        
+                });
+        
+               
+                okButton.addEventListener('click', function(event) {
+                    form.submit();
+                });
+            </script>
+
     </div>
 
 </div>
-
 {% endblock %}
