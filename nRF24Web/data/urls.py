@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 
 from .import views
 urlpatterns = [
-
-    path('channel',views.listChannels),
+    path('addMqttBroker',views.addMqttBroker),
+    path('channel',views.channelsAndBrokers),
     path('',views.dashboard),
 ]
