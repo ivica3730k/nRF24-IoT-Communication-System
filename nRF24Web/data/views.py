@@ -75,8 +75,7 @@ def addMqttBroker(request):
             owner = user
             addr = form.cleaned_data.get('mqttAddr')
             port = form.cleaned_data.get('mqttPort')
-            name = form.cleaned_data.get('description')
-
+            name = form.cleaned_data.get('name')
             try:
                 #this data is not mandatory
                 userName = form.cleaned_data.get('mqttUserName')
@@ -86,7 +85,7 @@ def addMqttBroker(request):
             
             broker = mqttBroker()
             broker.owner = user
-            broker.description = name
+            broker.name = name
             broker.mqttAddr = addr
             broker.mqttPort = port
             try:
@@ -96,7 +95,39 @@ def addMqttBroker(request):
                 pass
 
             broker.save()
-            print("broker saved")
 
-        return redirect('/dashboard/channel')
-        
+    return redirect('/dashboard/channel')
+
+def addChannel(request):
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = addChannelForm(request.POST)
+    
+        if form.is_valid():
+            current_user = request.user
+            user = User.objects.get(id = current_user.id)
+            ch = channel()
+            name = form.cleaned_data.get('name')
+            ch.name = name
+            ch.owner = user
+
+            try:
+                broker = form.cleaned_data.get('mqttBroker')
+                if broker != "None":
+                    topic = form.cleaned_data.get('mqttTopic')
+                    broker = mqttBroker.objects.get(name = broker)
+                    ch.mqttTopic = topic
+                    ch.mqttBroker = broker
+            except:
+                pass
+            
+            ch.save()
+     
+
+    return redirect('/dashboard/channel')
+
+
+
+
+
