@@ -42,20 +42,32 @@ class nRF24CommSystem{
     public:
         nRF24CommSystem(RF24 &_device);
         void setup(const uint64_t &_uplinkPipe,unsigned int &_channel);
-        payload nRF24CommSystem::makePayload(char& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(char16_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(char32_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(int8_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(int16_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(int32_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(uint8_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(uint16_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(uint32_t& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(float& data, uint64_t id);
-        payload nRF24CommSystem::makePayload(double& data, uint64_t id);
+        payload makePayload(char& data, uint64_t id);
+        payload makePayload(char16_t& data, uint64_t id);
+        payload makePayload(char32_t& data, uint64_t id);
+        payload makePayload(int8_t& data, uint64_t id);
+        payload makePayload(int16_t& data, uint64_t id);
+        payload makePayload(int32_t& data, uint64_t id);
+        payload makePayload(uint8_t& data, uint64_t id);
+        payload makePayload(uint16_t& data, uint64_t id);
+        payload makePayload(uint32_t& data, uint64_t id);
+        payload makePayload(float& data, uint64_t id);
+        payload makePayload(double& data, uint64_t id);
+        void onReceive( void (*func)(void) );    // arduino api
+        void payloadReadLoop(payload);
+        bool sendPayload(payload &pload);
+        payload read(void);
+
+
+
 
     private:
         RF24 *nRF24;
         uint64_t uplinkPipe;
         unsigned int channel;
+        payload cacheData;
+        void (*receivingFunction)(void);
+
+
+
 };

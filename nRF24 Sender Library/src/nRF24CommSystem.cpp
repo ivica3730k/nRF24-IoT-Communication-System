@@ -23,6 +23,29 @@ void nRF24CommSystem::setup(const uint64_t &_uplinkPipe,unsigned int &_channel){
 
 }
 
+void nRF24CommSystem::onReceive( void (*func)(void) ){
+    receivingFunction = func;
+}
+
+
+void nRF24CommSystem::payloadReadLoop(payload){
+    if(nRF24->available()){
+        nRF24->read(&cacheData,sizeof(cacheData));
+        receivingFunction();
+    }
+
+}
+
+payload nRF24CommSystem::read(void){
+    return cacheData;
+}
+
+
+bool nRF24CommSystem::sendPayload(payload &pload){
+    bool isDone = nRF24->write(&pload,sizeof(pload));
+    return isDone;
+}
+
 payload nRF24CommSystem::makePayload(char& data, uint64_t id)
 {
     payload pload;
