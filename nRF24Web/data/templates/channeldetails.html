@@ -1,0 +1,63 @@
+{% extends 'static.html' %} {% block title %} Channel Details - {{chInfo.fieldId}} {% endblock %} {%block content%}
+<div class="content px-5">
+
+    <div class="row pt-2 pb-3">
+
+        <form action="/dashboard/channel/del/{{chInfo.fieldId}}" method="POST">
+            <input type="submit" value="Delete Channel" class="btn btn-primary"/>
+        </form>
+    </div>
+
+    <div class="row">
+
+        <div class="col-12 col-md-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Channel label</th>
+                        <th>{{chInfo.name}}</th>
+                    </tr>
+
+                    <tr>
+                        <th scope="col">Channel ID</th>
+                        <th>{{chInfo.fieldId}}</th>
+
+                    </tr>
+
+                    {% if chInfo.mqttBroker %}
+                    <tr>
+                        <th scope="col">Mqtt Broker</th>
+                        <th>{{chInfo.mqttBroker.name}}</th>
+                    </tr>
+
+                    <tr>
+                        <th scope="col">Mqtt Topic</th>
+                        <th>{{chInfo.mqttTopic}}</th>
+                    </tr>
+
+                    <tr>
+                        <th scope="col">Mqtt Address</th>
+                        <th>{{chInfo.mqttBroker.mqttAddr}}</th>
+                    </tr>
+
+                    <tr>
+                        <th scope="col">Mqtt Port</th>
+                        <th>{{chInfo.mqttBroker.mqttPort}}</th>
+                    </tr>
+                    {% if chInfo.mqttBroker.mqttUserName %}
+
+                    <tr>
+                        <th scope="col">Mqtt UserName</th>
+                        <th>{{chInfo.mqttBroker.mqttUserName}}</th>
+                    </tr>
+                    {% endif %} 
+                    {% endif %}
+                </thead>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock%}

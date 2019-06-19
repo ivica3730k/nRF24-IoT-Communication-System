@@ -17,15 +17,21 @@
                         <th scope="col">Channel ID</th>
                         <th scope="col">Mqtt topic</th>
                         <th scope="col">Mqtt Broker</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {%if channels%} {% for ch in channels %}
                     <tr>
                         <th scope="row">{{ch.name}}</th>
-                        <td>{{ch.fieldId}}</td>
+                        <td>  <a href="/dashboard/channel/{{ch.fieldId}}"> {{ch.fieldId}}</a>   </td>
                         <td>{{ch.mqttTopic}}</td>
                         <td>{{ch.mqttBroker.name}}</td>
+                        <td>
+                                <form action="/dashboard/channel/del/{{ch.fieldId}}" method="POST">
+                                    <input type="submit" value="Delete" class="btn btn-primary btn-sm"/>
+                                </form>
+                        </td>
                     </tr>
                     {% endfor %} {%endif%}
 
@@ -39,7 +45,7 @@
 
             <br>
 
-            <form action="/dashboard/addChannel" method="post" autocomplete="off" id="addChannelForm">
+            <form action="/dashboard/channel/add" method="post" autocomplete="off" id="addChannelForm">
                 {% csrf_token %}
 
                 <div class="form-group">
@@ -108,7 +114,7 @@
 
             <br>
 
-            <form action="/dashboard/addMqttBroker" method="post" autocomplete="off" id="mqttForm">
+            <form action="/dashboard/mqtt/add" method="post" autocomplete="off" id="mqttForm">
                 {% csrf_token %}
 
                 <div class="form-group">

@@ -98,6 +98,16 @@ def addMqttBroker(request):
 
     return redirect('/dashboard/channel')
 
+def delMqttBroker(request,brokerName):
+    current_user = request.user
+    user = User.objects.get(id = current_user.id)
+    broker = mqttBroker.objects.get(name = brokerName)
+
+    if ch.owner != user:
+        return HttpResponse("You are not authorised to view this property!!!")
+    
+    ch.delete()
+    return redirect('/dashboard/channel')
 def addChannel(request):
 
     if request.method == 'POST':
@@ -126,6 +136,33 @@ def addChannel(request):
      
 
     return redirect('/dashboard/channel')
+
+def delChannel(request,channelId):
+    current_user = request.user
+    user = User.objects.get(id = current_user.id)
+    ch = channel.objects.get(fieldId = channelId)
+
+    if ch.owner != user:
+        return HttpResponse("You are not authorised to view this property!!!")
+    
+    ch.delete()
+    return redirect('/dashboard/channel')
+
+def channelInfo(request,channelId):
+    current_user = request.user
+    user = User.objects.get(id = current_user.id)
+    context = {
+    }
+    try:
+        chInfo = channel.objects.get(owner = current_user,fieldId = channelId)
+        context["chInfo"] = chInfo
+    except:
+        return HttpResponse("You are not authorised to view this property!!!")
+
+    template = loader.get_template("channeldetails.html")
+    return HttpResponse(template.render(context,request))    
+
+    
 
 
 

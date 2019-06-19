@@ -3,6 +3,8 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/C++Libs/paho.mqtt.c" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GatewayDemo/.piolibdeps/Int64String" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GatewayDemo/.piolibdeps/RF24" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/nRF24 Sender Library/.piolibdeps/Int64String" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/nRF24 Sender Library/.piolibdeps/RF24" vcs="Git" />
   </component>
