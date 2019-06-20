@@ -14,7 +14,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Channel label</th>
-                        <th scope="col">Channel ID</th>
+                        <th scope="col">Channel Key</th>
                         <th scope="col">Mqtt topic</th>
                         <th scope="col">Mqtt Broker</th>
                         <th></th>
@@ -24,11 +24,11 @@
                     {%if channels%} {% for ch in channels %}
                     <tr>
                         <th scope="row">{{ch.name}}</th>
-                        <td>  <a href="/dashboard/channel/{{ch.fieldId}}"> {{ch.fieldId}}</a>   </td>
+                        <td>  <a href="/dashboard/channel/{{ch.key}}"> {{ch.key}}</a>   </td>
                         <td>{{ch.mqttTopic}}</td>
                         <td>{{ch.mqttBroker.name}}</td>
                         <td>
-                                <form action="/dashboard/channel/del/{{ch.fieldId}}" method="POST">
+                                <form action="/dashboard/channel/del/{{ch.id}}" method="POST">
                                     <input type="submit" value="Delete" class="btn btn-primary btn-sm"/>
                                 </form>
                         </td>
@@ -45,7 +45,7 @@
 
             <br>
 
-            <form action="/dashboard/channel/add" method="post" autocomplete="off" id="addChannelForm">
+            <form autocomplete="off" action="/dashboard/channel/add" method="post" autocomplete="off" id="addChannelForm">
                 {% csrf_token %}
 
                 <div class="form-group">
@@ -101,6 +101,11 @@
                         <td>{{mqtt.mqttAddr}}</td>
                         <td>{{mqtt.mqttPort}}</td>
                         <td>{{mqtt.mqttUserName}}</td>
+                        <td>
+                            <form action="/dashboard/mqtt/del/{{mqtt.id}}" method="POST">
+                                <input type="submit" value="Delete" class="btn btn-primary btn-sm"/>
+                            </form>
+                    </td>
                     </tr>
                     {% endfor %} {%endif%}
 
@@ -114,7 +119,7 @@
 
             <br>
 
-            <form action="/dashboard/mqtt/add" method="post" autocomplete="off" id="mqttForm">
+            <form autocomplete="off" action="/dashboard/mqtt/add" method="post" autocomplete="off" id="mqttForm">
                 {% csrf_token %}
 
                 <div class="form-group">

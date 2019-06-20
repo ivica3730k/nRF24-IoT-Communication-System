@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 import json
-
+import uuid
 import myModule
 from .models import *
 from .forms import *
@@ -18,7 +18,7 @@ def save(request):
             id = hex(id) #cast received uint64_t id intro string
             #id = str(id)
             print (id)
-            dbdata = dataField.objects.get(fieldId = id) #get the object with the same id from database
+            dbdata = dataField.objects.get(key = id) #get the object with the same id from database
             print("found in db")
             value = myModule.castString(data["data"],int(data["datatype"]))
             print(type(value))
@@ -32,6 +32,7 @@ def save(request):
     return HttpResponse(template.render(context,request))
 
 def dashboard(request):
+    str(hex(int(uuid.uuid4().hex[:16],16)))
     current_user = request.user
     if current_user.id == None:
         return HttpResponse("You need to log in first to access your dashboard")
@@ -101,13 +102,14 @@ def addMqttBroker(request):
 def delMqttBroker(request,brokerName):
     current_user = request.user
     user = User.objects.get(id = current_user.id)
-    broker = mqttBroker.objects.get(name = brokerName)
+    broker = mqttBroker.objects.get(id = brokerName)
 
-    if ch.owner != user:
+    if broker.owner != user:
         return HttpResponse("You are not authorised to view this property!!!")
     
-    ch.delete()
+    broker.delete()
     return redirect('/dashboard/channel')
+
 def addChannel(request):
 
     if request.method == 'POST':
@@ -132,6 +134,7 @@ def addChannel(request):
             except:
                 pass
             
+            ch.key = (str(hex(int(uuid.uuid4().hex[:16],16))))
             ch.save()
      
 
@@ -140,7 +143,7 @@ def addChannel(request):
 def delChannel(request,channelId):
     current_user = request.user
     user = User.objects.get(id = current_user.id)
-    ch = channel.objects.get(fieldId = channelId)
+    ch = channel.objects.get(id = channelId)
 
     if ch.owner != user:
         return HttpResponse("You are not authorised to view this property!!!")
@@ -154,7 +157,7 @@ def channelInfo(request,channelId):
     context = {
     }
     try:
-        chInfo = channel.objects.get(owner = current_user,fieldId = channelId)
+        chInfo = channel.objects.get(owner = current_user,key = channelId)
         context["chInfo"] = chInfo
     except:
         return HttpResponse("You are not authorised to view this property!!!")

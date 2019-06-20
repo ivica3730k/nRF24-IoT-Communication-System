@@ -1,9 +1,9 @@
-{% extends 'static.html' %} {% block title %} Channel Details - {{chInfo.fieldId}} {% endblock %} {%block content%}
+{% extends 'static.html' %} {% block title %} Channel Details - {{chInfo.key}} {% endblock %} {%block content%}
 <div class="content px-5">
 
     <div class="row pt-2 pb-3">
 
-        <form action="/dashboard/channel/del/{{chInfo.fieldId}}" method="POST">
+        <form action="/dashboard/channel/del/{{chInfo.id}}" method="POST">
             <input type="submit" value="Delete Channel" class="btn btn-primary"/>
         </form>
     </div>
@@ -19,8 +19,8 @@
                     </tr>
 
                     <tr>
-                        <th scope="col">Channel ID</th>
-                        <th>{{chInfo.fieldId}}</th>
+                        <th scope="col">Channel Key</th>
+                        <th>{{chInfo.key}}</th>
 
                     </tr>
 
