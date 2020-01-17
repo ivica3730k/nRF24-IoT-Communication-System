@@ -1,0 +1,35 @@
+{% extends 'static.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{%block content%}
+
+
+<!--
+1st is ability to add Measuring channels
+2nd is to view measuring channels
+
+-->
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Welcome to your dashboard {{ user.get_username }}</h3>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <a href="/dashboard/channel">
+            <h4>List all channels</h4>
+        </a>
+
+    </div>
+
+    <div class="col-md-6">
+
+
+    </div>
+</div>
+
+{%endblock%}
